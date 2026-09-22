@@ -2,125 +2,227 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Stephanie Schaupp — Portfolio</title> 
-  <meta name="description" content="Stephanie Schaupp — Energy Engineering Student @ UC Berkeley" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stephanie Schaupp — Power Electronics &amp; Hardware</title>
+  <meta name="description" content="Stephanie Schaupp — Energy Engineering (EE) at UC Berkeley. Power electronics, PCB design, and hardware validation projects." />
+  <meta name="theme-color" content="#0f0d0e" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
-  
 <body>
+
   <header class="site-header">
     <div class="container header-inner">
-      <a class="logo" href="./index.html">Stephanie Schaupp</a>
+      <a class="logo" href="./">stephanie<span>.</span>schaupp</a>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="nav">menu</button>
       <nav class="nav" id="nav">
+        <a href="#work">Work</a>
+        <a href="#experience">Experience</a>
         <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact Information</a>
-        <a class="cta" href="assets/images/Stephanie Schaupp Resume.pdf" target="_blank" rel="noopener">Resume</a>
+        <a href="#contact">Contact</a>
+        <a class="resume" href="assets/Stephanie_Schaupp_Resume.pdf" target="_blank" rel="noopener">Resume</a>
       </nav>
+    </div>
+  </header>
 
   <main>
-    <section class="hero" style="background-color: #eed2d4;">
+    <!-- ================= HERO ================= -->
+    <section class="hero">
       <div class="container hero-inner">
-        <img class="hero-avatar" src="assets/images/Steph-1.jpg" />
-        <div class="hero-text">
-          <h1>Hey! I’m <span class="accent">Stephanie</span>.</h1>
-          <p class="lead">I like to dabble in different interesting projects that stretch my skills and hopefully become useful to people. Enjoy scrolling through!</p>
-          <p class="hero-cta">
-            <a class="btn" href="#projects">View work</a>
-            <a class="btn" href="#contact">Get in touch</a>
-          </p>
+        <div>
+          <span class="label">Energy Engineering · EE concentration · UC Berkeley ’27</span>
+          <h1>Hi, I’m <span class="accent">Stephanie</span>.<br>I design and test power hardware.</h1>
+          <p class="lead">I work on power electronics, PCB design, and hardware validation: converters, board layout, and the lab work that proves a design does what the math says it should. I’m currently doing research in the Boles Lab and hardware validation at Rivian &amp; VW Group Technologies.</p>
+          <div class="hero-tags">
+            <span class="tag">power electronics</span>
+            <span class="tag">PCB design</span>
+            <span class="tag">SI / PI</span>
+            <span class="tag">MPPT &amp; control</span>
+            <span class="tag">board bring-up</span>
+          </div>
+          <div class="btn-row">
+            <a class="btn" href="#work">View projects</a>
+            <a class="btn ghost" href="#contact">Get in touch</a>
+          </div>
+        </div>
+        <img class="hero-photo" src="assets/images/profile.jpg" alt="Portrait of Stephanie Schaupp" />
+      </div>
+    </section>
+
+    <!-- ================= WORK ================= -->
+    <section id="work" class="section">
+      <div class="container">
+        <div class="section-head">
+          <span class="label">01</span>
+          <h2>Selected work</h2>
+        </div>
+
+        <!-- Featured: buck converter -->
+        <a class="featured" href="projects/buck-converter.html">
+          <div class="featured-visual photo">
+            <img src="assets/images/buck_board.jpg" alt="Assembled synchronous buck converter PCB with RM10 inductor, TO-220 switches, and banana-jack connectors">
+          </div>
+          <div class="featured-body">
+            <span class="label">Featured · EE 113B · Altium · 4-layer PCB</span>
+            <h3>100 W Synchronous Buck Converter with MPPT</h3>
+            <p>Designed, laid out, built, and tested a 20 V → 12 V solar battery charger: switches, magnetics, gate drive, sensing, and a perturb-and-observe MPPT with adaptive step size.</p>
+            <div class="stats">
+              <div class="stat"><b>97.5%</b><span>peak efficiency</span></div>
+              <div class="stat"><b>97.3%</b><span>MPPT tracking</span></div>
+              <div class="stat"><b>93.5%</b><span>official efficiency score</span></div>
+            </div>
+            <span class="more">Read the full write-up</span>
+          </div>
+        </a>
+
+        <div class="grid">
+          <a class="card" href="projects/automated-blinds.html">
+            <div class="card-img"><img src="assets/images/PCB_Layout1.png" alt="KiCad PCB layout for the automated blinds controller" loading="lazy"></div>
+            <div class="card-body">
+              <span class="label">PCB · Enclosure · In progress</span>
+              <h3>Integrated PCB &amp; Enclosure for Automated Blinds</h3>
+              <p>ESP32 controller board with a brushed DC motor driver, laid out in KiCad and fit to a 3D-printed SolidWorks enclosure.</p>
+              <div class="tags"><span class="tag">KiCad</span><span class="tag">ESP32</span><span class="tag">SolidWorks</span></div>
+              <span class="more">View project</span>
+            </div>
+          </a>
+
+          <a class="card" href="projects/usb-rectifier.html">
+            <div class="card-img"><img src="assets/images/Rectifier.png" alt="PLECS model of a full-bridge rectifier" loading="lazy"></div>
+            <div class="card-body">
+              <span class="label">Power electronics · Simulation</span>
+              <h3>Power Quality of a Full-Bridge Rectifier for USB Charging</h3>
+              <p>PLECS study of power factor, THD, and output ripple, with component sizes chosen to meet USB specs in the smallest footprint.</p>
+              <div class="tags"><span class="tag">PLECS</span><span class="tag">THD</span><span class="tag">power factor</span></div>
+              <span class="more">View project</span>
+            </div>
+          </a>
+
+          <a class="card" href="projects/wind-turbine.html">
+            <div class="card-img"><img src="assets/images/Wind_Turbine_Blade.png" alt="CAD model of wind turbine blade" loading="lazy"></div>
+            <div class="card-body">
+              <span class="label">Mechanical · FEA</span>
+              <h3>Aerodynamic &amp; Structural Optimization of a HAWT</h3>
+              <p>Three-blade SG 6043 rotor tuned for a 25 mph design wind speed, with the tower and blades refined in SolidWorks FEA.</p>
+              <div class="tags"><span class="tag">SolidWorks</span><span class="tag">FEA</span><span class="tag">aero</span></div>
+              <span class="more">View project</span>
+            </div>
+          </a>
+
+          <a class="card" href="projects/cascade-refrigeration.html">
+            <div class="card-img"><img src="assets/images/Cascade_refrigeration.png" alt="Cascade refrigeration cycle diagram" loading="lazy"></div>
+            <div class="card-body">
+              <span class="label">Thermodynamics · Python</span>
+              <h3>Two-Stage NH₃ / CO₂ Cascade Refrigeration Cycle</h3>
+              <p>Python model that sweeps the inter-stage saturation temperature to find the maximum-COP operating point.</p>
+              <div class="tags"><span class="tag">Python</span><span class="tag">Jupyter</span><span class="tag">thermo</span></div>
+              <span class="more">View project</span>
+            </div>
+          </a>
         </div>
       </div>
     </section>
 
-    <section id="about" class="container section about">
-      <h2>About</h2>
-      <p>I’m an Energy Engineering student with an <strong> Electrical and Mechanical Engineering</strong> background, based in <strong>Berkeley, CA</strong>. I am passionate about advancing sustainable technology and electric mobility. My experience spans circuit design, PCB manufacturing, data analysis, and power system modeling, with a strong foundation in safety systems, supply chain optimization, and battery technology.</p>
-      <ul class="meta-list">
-        <li><strong>Location:</strong> Berkeley, CA</li>
-        <li><strong>Email:</strong> <a href="mailto:stephanieschaupp2@berkeley.edu">stephanieschaupp2@berkeley.edu</a></li>
-        <li><strong>Prev @:</strong> Zoox & Department of Energy </li>
-      </ul>
-    </section>
-
-    <section id="projects" class="container section projects">
-      <h2>Projects</h2>
-      <div class="grid">
-        <article class="card">
-          <img src="assets/images/Wind_Turbine_Blade.png" alt="Project 1 Image">
-          <h3>Aerodynamic and Structural Optimization of a HAWT</h3>
-          <p> Challenge: Designed a horizontal-axis wind turbine to maximize power output for a target wind speed of 25 mph while minimizing weight and deflection. </p>
-          <p> Action: Selected the SG 6043 airfoil, 3-blade geometry, and twist angle of 43 degrees, balancing the lift-to-drag ratio with structural integrity. Performed Finite Element Analysis in Solidworks to refine the tower and blade design, identifying critical stress points and ensuring stiffness. </p>
-          <p> Result: The final design achieved an optimized power of 12.63 W with a stiffness of 17.7 N / mm. </p>
-          <p>Skills: Aerodynamics, HAWT Design, FEA, Structural Analysis, CAD, Solidworks</p>
-          <p class="card-links">
-            <a href="assets/images/Wind Turbine Project Report.pdf" target="_blank" rel="noopener">Read here</a>
-          </p>
-        </article>
-
-        <article class="card">
-          <img src="assets/images/Cascade_refrigeration.png" alt="Cascade Refrigerator Image">
-          <h3>Thermodynamic Analysis of a Two-Stage Cascade Refrigeration Cycle</h3>
-          <p> Challenge: Analyze a two-stage cascade refrigeration system utilizing NH3 and CO2 refrigerants to identify the optimal inter-stage saturation temperature for maximum Coefficient of Performance. </p>
-          <p> Action: Developed a computational model in a Jupyter Notebook to analyze the thermodynamic properties and energy balance across the system, varying the evaporation and condensation temperatures. </p>
-          <p> Result: The analysis determined the optimal intermediate temperature to be 28.07 °C, yielding a maximum COP of 4.95 and a projected cooling capacity of 225.08 kW. </p>
-          <p>Skills: Thermodynamics, Refrigeration Cycles, Python Modeling, Data Analysis, Energy Balance</p>
-          <p class="card-links">
-            <a href="https://github.com/StephanieHSchaupp/StephSchaupp/blob/main/assets/images/Cascade_Refrigeration_Project.ipynb" target="_blank" rel="noopener">Read here</a>
-          </p>
-        </article>
-
-        <article class="card">
-          <img src="assets/images/Rectifier.png" alt="iPhone Charger Rectifier Image">
-          <h3>Power Quality Analysis of a Full-Bridge Rectifier for USB Charging</h3>
-          <p> Challenge: Design and analyze a rectifier circuit to meet USB power specifications while minimizing harmonic distortion and output ripple. </p>
-          <p> Action: Created a comprehensive simulation setup in PLECS to analyze steady-state qualities, specifically focusing on Power Factor, Total Harmonic Distortion, and ripple voltage. Components were selected to minimize size requirements while maintaining power quality. </p>
-          <p> Result: The final design achieved a THD of 50% and a power factor of 0.9, successfully demonstrating compliance with voltage and ripple constraints. </p>
-          <p>Skills: Power Electronics, PLECS Simulation, Rectifier Circuits, THD Analysis, Power Factor Correction, Circuit Design</p>
-          <p class="card-links">
-            <a href="assets/images/iPhone_Charger_Rectifier.pdf" target="_blank" rel="noopener">Read here</a>
-            <a href="assets/images/iPhone_Charger_Rectifier.plecs" target="_blank" rel="noopener">Download simulation here (PLECS)</a>
-          </p>
-        </article>
-
-        <article class="card">
-          <img src="assets/images/Schematic_Sketch.png" alt="Schematic Block Diagram Image">
-          <h3>Integrated PCB and Enclosure Design for Automated Blinds</h3>
-          <p> Challenge: Develop a cost-effective, compact, and reliable Printed Circuit Board for an automated horizontal blind control system that integrates an ESP32 and a brushed DC motor driver. </p>
-          <p> Action: Utilized KiCad for schematic capture and PCB layout. Designed the enclosure using SolidWorks and ensured mechanical compatibility between the PCB and the final 3D printed shell. Prototyping and testing were performed with lab equipment to verify functionality. </p>
-          <p> Result: Project currently in progress, will update results soon. </p>
-          <p>Skills: PCB Design, KiCad, Schematic Capture, Hardware Prototyping, SolidWorks, System Integration</p>
-          <p class="card-links">
-            <a href="assets/images/PCB_Schematic1.png" target="_blank" rel="noopener">See Schematic Here</a>
-            <a href="assets/images/Layout.kicad_pcb" target="_blank" rel="noopener">Download Layout Here (KiCad)</a>
-          </p>
-        </article>
-
-        <!-- duplicate card blocks for more projects -->
+    <!-- ================= EXPERIENCE ================= -->
+    <section id="experience" class="section">
+      <div class="container">
+        <div class="section-head">
+          <span class="label">02</span>
+          <h2>Experience</h2>
+        </div>
+        <div class="xp-list">
+          <div class="xp">
+            <div class="org">Boles Research Lab<small>Aug 2026 – Present</small></div>
+            <div>
+              <h3>Power Electronics Research Assistant</h3>
+              <p>Extending an automated testbed that characterizes nonlinear mechanical loss in piezoelectric resonators. I’m expanding it beyond three PZT materials to new material types and geometries, refining empirical Steinmetz loss models, and speeding up the C2000 sweep that finds resonance and peak-efficiency points.</p>
+            </div>
+          </div>
+          <div class="xp">
+            <div class="org">Rivian &amp; Volkswagen Group Technologies<small>May 2026 – Present</small></div>
+            <div>
+              <h3>Hardware Validation Intern</h3>
+              <p>Raised RF ECU board testability from 45.6% to 56.7% in Valor within DFM constraints. I also wrote DFT test-point guidelines adopted across Rivian, VW, and all four CMs, and built a cross-CM failure analytics pipeline for ICT/FVT/EOL data.</p>
+            </div>
+          </div>
+          <div class="xp">
+            <div class="org">Siemens EDA<small>Jan 2026 – May 2026</small></div>
+            <div>
+              <h3>PCB Design Engineer Intern</h3>
+              <p>Designed and routed a 4-layer Cyclone IV FPGA flight-controller PCB in Xpedition, with an RF transceiver, IMU, 4 motor drivers, a 4-rail DC-DC network, and 100+ I/O. I validated SI/PI on critical nets (overshoot, ringing, crosstalk, DC droop) and fixed them through termination, spacing, and power-plane changes.</p>
+            </div>
+          </div>
+          <div class="xp">
+            <div class="org">Pilawa Research Group<small>Sep 2025 – May 2026</small></div>
+            <div>
+              <h3>Power Electronics Research Assistant</h3>
+              <p>Overhauled a legacy 500 V lab safety system. I brought all the hardware up from scratch, validated the schematics, and redesigned components for 1 kV+ operation to support FCML testing.</p>
+            </div>
+          </div>
+          <div class="xp">
+            <div class="org">CalSol<small>Jan 2024 – Jan 2025</small></div>
+            <div>
+              <h3>Hardware Engineer · Solar Car Team</h3>
+              <p>Assembled and validated a 17-module, 1 kWh Li-ion pack. I also led a DFM-focused KiCad PCB redesign (no busbars, 2 oz copper) that cut reworks by 70% and build time by 1.5 weeks.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-   <section id="contact" class="container section contact">
-  <h2>Contact</h2>
-  <p>
-    Please feel free to reach out to me at 
-    <a href="mailto:you@example.com">stephanieschaupp2@berkeley.edu</a> 
-    or connect with me on 
-    <a href="https://www.linkedin.com/in/stephanieschaupp/" target="_blank">LinkedIn</a>.
-  </p>
-</section>
-</main>
+    <!-- ================= ABOUT ================= -->
+    <section id="about" class="section">
+      <div class="container">
+        <div class="section-head">
+          <span class="label">03</span>
+          <h2>About</h2>
+        </div>
+        <div class="about-grid">
+          <div>
+            <p>I’m an <strong>Energy Engineering</strong> student at <strong>UC Berkeley</strong> with a concentration in <strong>Electrical Engineering</strong>, graduating in May 2027. I care about sustainable technology and electric mobility, and I like working at the point where circuit design meets real hardware.</p>
+            <p>My work spans converter design, PCB layout and SI/PI, DFM/DFT, and test automation. What I enjoy most is bring-up: building a board one subsystem at a time and using the scope, thermal camera, and e-load to figure out why it isn’t matching the model yet.</p>
+          </div>
+          <div class="skills">
+            <h4>Hardware</h4>
+            <div class="tags"><span class="tag">converter design</span><span class="tag">magnetics</span><span class="tag">gate drive</span><span class="tag">SI / PI</span><span class="tag">DFM / DFT</span><span class="tag">battery packs</span></div>
+            <h4>EDA</h4>
+            <div class="tags"><span class="tag">Altium</span><span class="tag">Xpedition</span><span class="tag">HyperLynx</span><span class="tag">Valor</span><span class="tag">KiCad</span><span class="tag">LTspice</span><span class="tag">PLECS</span></div>
+            <h4>Code &amp; CAD</h4>
+            <div class="tags"><span class="tag">C (TI C2000, ESP32)</span><span class="tag">Python</span><span class="tag">MATLAB</span><span class="tag">SolidWorks</span></div>
+            <h4>Lab</h4>
+            <div class="tags"><span class="tag">oscilloscope</span><span class="tag">thermal camera</span><span class="tag">LCR meter</span><span class="tag">electronic load</span><span class="tag">soldering / rework</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="contact-box">
+          <div>
+            <span class="label">04 · Contact</span>
+            <h2>Let’s talk.</h2>
+            <p>Open to power electronics and hardware roles and research.</p>
+          </div>
+          <div class="btn-row">
+            <a class="btn" href="mailto:stephanieschaupp2@berkeley.edu">stephanieschaupp2@berkeley.edu</a>
+            <a class="btn ghost" href="https://www.linkedin.com/in/stephanieschaupp/" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <footer class="site-footer">
     <div class="container">
-      <p>© <span id="year"></span> Stephanie Schaupp — <a href="https://github.com/yourname" target="_blank" rel="noopener">GitHub</a> · <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener">LinkedIn</a></p>
+      <span>© <span id="year">2026</span> Stephanie Schaupp</span>
+      <span><a href="https://github.com/StephanieHSchaupp" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/stephanieschaupp/" target="_blank" rel="noopener">LinkedIn</a> · <a href="mailto:stephanieschaupp2@berkeley.edu">Email</a></span>
     </div>
   </footer>
 
   <script src="script.js"></script>
 </body>
 </html>
-

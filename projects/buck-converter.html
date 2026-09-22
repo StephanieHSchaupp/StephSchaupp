@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>100 W Synchronous Buck Converter with MPPT — Stephanie Schaupp</title>
+  <meta name="description" content="Design, layout, bring-up, and testing of a 20 V to 12 V, 100 W synchronous buck converter with MPPT for PV battery charging." />
+  <meta name="theme-color" content="#0f0d0e" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="../">stephanie<span>.</span>schaupp</a>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="nav">menu</button>
+      <nav class="nav" id="nav">
+        <a href="../#work">Work</a>
+        <a href="../#experience">Experience</a>
+        <a href="../#about">About</a>
+        <a href="../#contact">Contact</a>
+        <a class="resume" href="../assets/Stephanie_Schaupp_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <a class="back" href="../#work">All projects</a>
+
+    <section class="p-hero">
+      <span class="label">EE 113B · Power Electronics Design · UC Berkeley</span>
+      <h1>100 W Synchronous Buck Converter with MPPT</h1>
+      <p class="lead">A solar battery charger built from scratch. It steps a 16–24 V PV input down to 12 V at up to 100 W. I sized the power stage, designed the inductor, laid out a custom 4-layer PCB in Altium, wrote the MPPT firmware, and brought the board up one subsystem at a time.</p>
+      <div class="tags">
+        <span class="tag">synchronous buck</span><span class="tag">magnetics</span><span class="tag">gate drive</span>
+        <span class="tag">current / voltage sensing</span><span class="tag">MPPT</span><span class="tag">4-layer PCB</span>
+        <span class="tag">Altium Designer</span><span class="tag">TI C2000</span><span class="tag">thermal</span><span class="tag">Python / MATLAB</span>
+      </div>
+      <!-- TODO: upload your report PDF to assets/docs/ with this exact name to activate the link -->
+      <div class="files">
+        <a class="file" href="../assets/docs/EE113B_Buck_Converter_Report.pdf" target="_blank" rel="noopener">Full report (PDF)</a>
+      </div>
+
+      <figure class="figure hero-fig">
+        <div class="frame light"><img src="../assets/images/buck_board.jpg" alt="Assembled synchronous buck converter PCB"></div>
+        <figcaption>The assembled board: RM10 inductor (L1, left), heat-sunk TO-220 switches (center), and sensing and gate drive ICs (upper right).</figcaption>
+      </figure>
+
+      <div class="p-stats">
+        <div class="stat"><b>93.48%</b><span>official weighted efficiency</span></div>
+        <div class="stat"><b>97.51%</b><span>peak efficiency</span></div>
+        <div class="stat"><b>97.3%</b><span>steady-state MPPT tracking</span></div>
+        <div class="stat"><b>1.37 W/cm³</b><span>power density</span></div>
+      </div>
+    </section>
+
+    <div class="p-layout">
+      <nav class="toc" aria-label="On this page">
+        <a href="#specs">Specs &amp; topology</a>
+        <a href="#power-stage">Power stage</a>
+        <a href="#magnetics">Magnetics</a>
+        <a href="#support">Gate drive &amp; sensing</a>
+        <a href="#mppt">MPPT control</a>
+        <a href="#layout">PCB layout</a>
+        <a href="#testing">Bring-up &amp; testing</a>
+        <a href="#results">Results</a>
+        <a href="#lessons">What I’d change</a>
+      </nav>
+
+      <article class="prose">
+        <h2 id="specs"><span class="num">01</span>Specs &amp; topology</h2>
+        <p>The converter charges a 12 V battery from a PV panel, so it has to handle a wide input range and track the panel’s maximum power point. I used a <strong>synchronous buck</strong>, which replaces the freewheeling diode with a low-side MOSFET to cut conduction loss.</p>
+
+        <figure class="figure">
+          <div class="frame">
+            <svg class="schem" viewBox="0 0 540 210" role="img" aria-label="Synchronous buck converter schematic">
+              <path class="w" d="M50 50 H140 M195 50 H250 M330 50 H460 M50 180 H460" />
+              <path class="w" d="M50 50 V99 M50 131 V180" /><circle class="w" cx="50" cy="115" r="16" />
+              <text x="44" y="112">+</text><text x="45" y="128">−</text><text x="0" y="119">Vin</text>
+              <path class="w" d="M105 50 V108 M93 108 H117 M93 118 H117 M105 118 V180" /><text x="122" y="117">Cin</text>
+              <circle class="w" cx="146" cy="50" r="3" /><path class="w" d="M149 49 L186 34" /><circle class="w" cx="191" cy="50" r="3" /><text x="156" y="26">Q1</text>
+              <path class="w" d="M230 50 V100" /><circle class="w" cx="230" cy="103" r="3" /><path class="w" d="M231 106 L245 141" /><circle class="w" cx="230" cy="146" r="3" /><path class="w" d="M230 149 V180" /><text x="250" y="130">Q2</text>
+              <text class="pk" x="200" y="75">Vsw</text>
+              <path class="w hot" d="M250 50 a10 10 0 0 1 20 0 a10 10 0 0 1 20 0 a10 10 0 0 1 20 0 a10 10 0 0 1 20 0" /><text x="283" y="28">L</text>
+              <path class="w" d="M375 50 V108 M363 108 H387 M363 118 H387 M375 118 V180" /><text x="392" y="117">Cout</text>
+              <path class="w" d="M460 50 V85 L470 90 L450 100 L470 110 L450 120 L470 130 L450 140 L460 145 V180" /><text x="478" y="112">12 V</text><text x="478" y="127">batt</text>
+              <text class="pk" x="404" y="40">Vout</text>
+              <circle class="dot" cx="105" cy="50" r="3.5"/><circle class="dot" cx="230" cy="50" r="3.5"/><circle class="dot" cx="375" cy="50" r="3.5"/>
+              <circle class="dot" cx="105" cy="180" r="3.5"/><circle class="dot" cx="230" cy="180" r="3.5"/><circle class="dot" cx="375" cy="180" r="3.5"/>
+            </svg>
+          </div>
+          <figcaption>Fig. 1 · Synchronous buck power stage. Q1 is hard-switched; Q2 soft-switches through its body diode during dead time.</figcaption>
+        </figure>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Specification</th><th class="num">Value</th></tr></thead>
+            <tbody>
+              <tr><td>Input voltage (nominal / range)</td><td class="num">20 V / 16–24 V</td></tr>
+              <tr><td>Output voltage</td><td class="num">12 V</td></tr>
+              <tr><td>Output power (nominal / range)</td><td class="num">100 W / 50–100 W</td></tr>
+              <tr><td>Input &amp; output voltage ripple</td><td class="num">&lt; 5%</td></tr>
+              <tr><td>Switching frequency (final)</td><td class="num">50 kHz</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="power-stage"><span class="num">02</span>Power stage</h2>
+        <h3>Switching frequency</h3>
+        <p>The pre-made board ran at 100 kHz. For my custom board I kept the same large passives and added turns to the RM10 inductor, which gave me room to <strong>drop to 50 kHz</strong>. I swept 40, 50, and 60 kHz and chose 50 kHz: it had the best efficiency, and anything below about 30 kHz caused audible ringing. Lower overlap and C<sub>oss</sub> loss improved efficiency by about 0.8%.</p>
+
+        <h3>Switches</h3>
+        <p>Both switches see a worst-case stress of V<sub>in,max</sub> = 24 V, so I chose the <strong>IRFZ48N (55 V, 64 A, TO-220)</strong>, which gives about 2.3× voltage margin. I modeled losses asymmetrically: the high-side switch takes C<sub>oss</sub> and overlap loss, and both switches take conduction loss. An iterative thermal model scaled R<sub>ds,on</sub> with junction temperature, and each switch got its own heat sink.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Corner</th><th class="num">D</th><th class="num">I<sub>L</sub> (A)</th><th class="num">V<sub>stress</sub> (V)</th><th class="num">I<sub>rms</sub> Q1 (A)</th><th class="num">I<sub>rms</sub> Q2 (A)</th></tr></thead>
+            <tbody>
+              <tr><td>16 V / 50 W</td><td class="num">0.75</td><td class="num">4.17</td><td class="num">16</td><td class="num">3.61</td><td class="num">2.09</td></tr>
+              <tr><td>16 V / 100 W</td><td class="num">0.75</td><td class="num">8.33</td><td class="num">16</td><td class="num">7.22</td><td class="num">4.17</td></tr>
+              <tr class="hi"><td>20 V / 100 W (nominal)</td><td class="num">0.60</td><td class="num">8.33</td><td class="num">20</td><td class="num">6.46</td><td class="num">5.28</td></tr>
+              <tr><td>24 V / 50 W</td><td class="num">0.50</td><td class="num">4.17</td><td class="num">24</td><td class="num">2.96</td><td class="num">2.96</td></tr>
+              <tr><td>24 V / 100 W</td><td class="num">0.50</td><td class="num">8.33</td><td class="num">24</td><td class="num">5.90</td><td class="num">5.90</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Capacitors</h3>
+        <p>Minimum capacitance from the ripple spec came out to 20.6 µF at the input and 3.5 µF at the output. At the input, a <strong>470 µF electrolytic in parallel with five 10 µF MLCCs</strong> provides bulk capacitance, and the MLCCs take most of the ripple current away from the electrolytic’s higher ESR. I split the current by impedance to calculate each capacitor’s loss. At the output, two MLCCs were enough at 100 kHz, but after moving to 50 kHz the ripple crept just past 5%, so I added two more.</p>
+
+        <h2 id="magnetics"><span class="num">03</span>Magnetics</h2>
+        <p>The inductor current is mostly DC with a small ripple, so <strong>saturation, not core loss</strong>, set the design. I picked 3C95 ferrite for its high saturation flux density, sized the core with the core-geometry (K<sub>g</sub>) method, and used solid 18 AWG wire because AC winding loss was negligible and Litz wire wouldn’t help. For the final design I filled the unused bobbin space with extra turns.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th></th><th class="num">Initial</th><th class="num">Final</th></tr></thead>
+            <tbody>
+              <tr><td>Core / material</td><td class="num">RM10 / 3C95</td><td class="num">RM10 / 3C95</td></tr>
+              <tr><td>Turns</td><td class="num">13</td><td class="num">17</td></tr>
+              <tr><td>Gap</td><td class="num">0.112 in</td><td class="num">0.110 in</td></tr>
+              <tr><td>Wire</td><td class="num">18 AWG</td><td class="num">18 AWG</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="support"><span class="num">04</span>Gate drive &amp; sensing</h2>
+        <p><strong>Gate drive:</strong> an LM5109B half-bridge driver with a <strong>bootstrap supply</strong> for the high side, so no isolation or level-shifting supply was needed. I sized the bootstrap capacitor for less than 10% droop and its resistor to keep diode current spikes within rating. Each gate uses a split turn-on/turn-off network (parallel resistor plus diode): slow turn-on limits overshoot, and fast turn-off cuts overlap loss.</p>
+        <p><strong>Sensing:</strong> the output voltage goes through a high-impedance divider into an LM358 buffer and then an RC filter before the ADC. Output current is measured across a 2.5 mΩ shunt with an LT1999 current-sense amplifier referenced to an ADR1581. An LDO powers both amplifiers, and decoupling sits at every IC.</p>
+
+        <h2 id="mppt"><span class="num">05</span>MPPT control</h2>
+        <p>A TI C2000 microcontroller generates complementary PWM through its ePWM module, with configurable dead time. Duty cycle is the control handle that moves the operating point along the panel’s I–V curve.</p>
+        <p>The algorithm is <strong>perturb-and-observe with an adaptive step</strong>. It starts with a coarse duty step and counts direction reversals. Frequent reversals mean it’s near the MPP, so it switches to a fine step to reduce oscillation. After 50 reversals it returns to the coarse step, in case the MPP has moved (for example, an irradiance change) or it’s stuck at a local maximum.</p>
+        <div class="callout"><p>I tried several more complex MPPT schemes based on papers, but one of the simplest versions tracked best on real hardware.</p></div>
+
+        <h2 id="layout"><span class="num">06</span>PCB layout</h2>
+        <p>Layout priorities, in order:</p>
+        <ul>
+          <li><strong>High di/dt loops.</strong> I placed the commutation capacitor right at the switches to shrink the switching loop, and routed the gate-drive return directly under its forward path to minimize parasitic inductance and ringing.</li>
+          <li><strong>High dv/dt node.</strong> I kept the switch node small and short to limit parasitic capacitance and charge injection.</li>
+          <li><strong>Power paths.</strong> Via-free DC return between the input and output jacks, an AC return that follows the top-layer current path, and poured ground planes.</li>
+          <li><strong>Analog isolation.</strong> Sensing sits far from the gate drive, with a ground-plane cut that steers power return current away from it and short high-impedance nodes at the op-amp.</li>
+        </ul>
+        <!-- TODO: export layout / board photos as PNG into assets/images/ and uncomment:
+        <figure class="figure">
+          <div class="frame light"><img src="../assets/images/buck_layout.png" alt="4-layer PCB layout of the buck converter"></div>
+          <figcaption>Fig. 2 · Top layer of the 4-layer board.</figcaption>
+        </figure>
+        -->
+
+        <h2 id="testing"><span class="num">07</span>Bring-up &amp; testing</h2>
+        <p>I brought the board up in five stages: <strong>PWM → gate drive → power ramp → sensing → control</strong>. I validated each stage on its own before moving on, which made faults easy to isolate. The test setup used a DC supply in parallel with a PV panel as the source, an electronic load as the 12 V battery, and an auxiliary supply for the gate drive and sensing. For measurements I used an oscilloscope with voltage and current probes, a thermal camera, a multimeter, and an LCR meter.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Corner</th><th class="num">V<sub>in</sub> ripple (V)</th><th class="num">V<sub>out</sub> ripple (V)</th><th class="num">Max temp (°C)</th></tr></thead>
+            <tbody>
+              <tr><td>16 V / 50 W</td><td class="num">0.291</td><td class="num">0.251</td><td class="num">33.9</td></tr>
+              <tr><td>16 V / 100 W</td><td class="num">0.362</td><td class="num">0.268</td><td class="num">42.0</td></tr>
+              <tr class="hi"><td>20 V / 100 W (nominal)</td><td class="num">0.365</td><td class="num">0.345</td><td class="num">45.0</td></tr>
+              <tr><td>24 V / 50 W</td><td class="num">0.248</td><td class="num">0.392</td><td class="num">47.0</td></tr>
+              <tr><td>24 V / 100 W</td><td class="num">0.375</td><td class="num">0.378</td><td class="num">51.8</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Ripple stayed under 5% at every corner. The high-side switch was consistently the hottest component and ran a little warmer than predicted. I traced that to the heat-sink bolts: they were in the wrong position, and once the parts were soldered I couldn’t tighten them.</p>
+
+        <h2 id="results"><span class="num">08</span>Results</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Metric</th><th class="num">Result</th></tr></thead>
+            <tbody>
+              <tr class="hi"><td>Peak efficiency</td><td class="num">97.51%</td></tr>
+              <tr><td>Official weighted efficiency score</td><td class="num">93.48%</td></tr>
+              <tr><td>Nominal efficiency, own sweep (incl. aux power)</td><td class="num">95.60%</td></tr>
+              <tr><td>Nominal efficiency, official test bench</td><td class="num">92.43%</td></tr>
+              <tr><td>MPPT steady-state tracking efficiency</td><td class="num">97.3%</td></tr>
+              <tr><td>MPPT dynamic efficiency (avg. 76.2 W)</td><td class="num">96.26%</td></tr>
+              <tr><td>Power density</td><td class="num">1.366 W/cm³</td></tr>
+              <tr><td>BOM cost (core components)</td><td class="num">$27.07</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>The converter met every spec at all operating corners. My loss model matched my own sweep to within about 1%. The official bench measured lower, most likely from losses I didn’t model: body-diode conduction during dead time and copper resistance in the board.</p>
+
+        <h2 id="lessons"><span class="num">09</span>What I’d change</h2>
+        <ul>
+          <li><strong>Target conduction loss first.</strong> At 50 kHz it dominated the loss breakdown. I’d choose lower-R<sub>ds,on</sub> switches and heavier (14 AWG) inductor wire.</li>
+          <li><strong>Fix thermal management:</strong> mount the heat sinks properly and consider forced air.</li>
+          <li><strong>Tighten the layout</strong> to shorten power-stage current paths.</li>
+          <li><strong>Tune dead time and gate resistors</strong> to cut overlap and body-diode loss. I ran out of time for this.</li>
+        </ul>
+        <p>The biggest takeaway was the value of systematic, stage-by-stage bring-up. It turned debugging from guesswork into isolating one variable at a time.</p>
+
+        <a class="back" href="../#work">Back to all projects</a>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>© <span id="year">2026</span> Stephanie Schaupp</span>
+      <span><a href="https://github.com/StephanieHSchaupp" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/stephanieschaupp/" target="_blank" rel="noopener">LinkedIn</a> · <a href="mailto:stephanieschaupp2@berkeley.edu">Email</a></span>
+    </div>
+  </footer>
+  <script src="../script.js"></script>
+</body>
+</html>

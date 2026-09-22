@@ -1,23 +1,21 @@
-// minimal interactive behavior: nav toggle and current year
-document.addEventListener('DOMContentLoaded', function(){
-  var navToggle = document.getElementById('navToggle');
+// Mobile nav toggle + footer year
+document.addEventListener('DOMContentLoaded', function () {
+  var toggle = document.getElementById('navToggle');
   var nav = document.getElementById('nav');
-  if(navToggle){
-    navToggle.addEventListener('click', function(){
-      if(nav.style.display === 'flex') {
-        nav.style.display = '';
-      } else {
-        nav.style.display = 'flex';
-        nav.style.flexDirection = 'column';
-        nav.style.gap = '12px';
-        nav.style.alignItems = 'flex-start';
-      }
+  if (toggle && nav) {
+    toggle.addEventListener('click', function () {
+      var open = nav.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open);
+      toggle.textContent = open ? 'close' : 'menu';
+    });
+    nav.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        nav.classList.remove('open');
+        toggle.setAttribute('aria-expanded', false);
+        toggle.textContent = 'menu';
+      });
     });
   }
-
-  // year in footer
-  var y = new Date().getFullYear();
-  var el = document.getElementById('year');
-  if(el) el.textContent = y;
+  var y = document.getElementById('year');
+  if (y) y.textContent = new Date().getFullYear();
 });
-

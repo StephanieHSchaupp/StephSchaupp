@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Power Quality of a Full-Bridge Rectifier for USB Charging — Stephanie Schaupp</title>
+  <meta name="description" content="PLECS simulation of a full-bridge rectifier for USB charging: power factor, THD, and ripple." />
+  <meta name="theme-color" content="#0f0d0e" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="../">stephanie<span>.</span>schaupp</a>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="nav">menu</button>
+      <nav class="nav" id="nav">
+        <a href="../#work">Work</a>
+        <a href="../#experience">Experience</a>
+        <a href="../#about">About</a>
+        <a href="../#contact">Contact</a>
+        <a class="resume" href="../assets/Stephanie_Schaupp_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <a class="back" href="../#work">All projects</a>
+
+    <section class="p-hero">
+      <span class="label">Power electronics · Simulation</span>
+      <h1>Power Quality of a Full-Bridge Rectifier for USB Charging</h1>
+      <p class="lead">Designed and simulated a full-bridge rectifier front end for a USB charger, trading off component size against power quality.</p>
+      <div class="tags"><span class="tag">PLECS</span><span class="tag">rectifiers</span><span class="tag">THD</span><span class="tag">power factor</span><span class="tag">ripple</span><span class="tag">component sizing</span></div>
+      <div class="files"><a class="file" href="../assets/images/iPhone_Charger_Rectifier.pdf" target="_blank" rel="noopener">Report (PDF)</a><a class="file" href="../assets/images/iPhone_Charger_Rectifier.plecs" target="_blank" rel="noopener">PLECS model</a></div>
+    </section>
+
+    <div class="p-layout" style="grid-template-columns: minmax(0,1fr);">
+      <article class="prose">
+        <figure class="figure">
+          <div class="frame light"><img src="../assets/images/Rectifier.png" alt="PLECS rectifier model"></div>
+        </figure>
+
+        <h2><span class="num">01</span>Challenge</h2>
+        <p>Design a rectifier that meets USB power specifications while keeping harmonic distortion and output ripple in check.</p>
+
+        <h2><span class="num">02</span>Approach</h2>
+        <p>I built a <strong>PLECS</strong> simulation to analyze steady-state behavior, focusing on power factor, total harmonic distortion, and output ripple voltage. I chose components to keep the design small while still meeting power-quality targets.</p>
+
+        <h2><span class="num">03</span>Result</h2>
+        <p>The final design reached a <strong>power factor of 0.9</strong> and <strong>THD of 50%</strong>, and met the voltage and ripple constraints.</p>
+
+        <a class="back" href="../#work">Back to all projects</a>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>© <span id="year">2026</span> Stephanie Schaupp</span>
+      <span><a href="https://github.com/StephanieHSchaupp" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/stephanieschaupp/" target="_blank" rel="noopener">LinkedIn</a> · <a href="mailto:stephanieschaupp2@berkeley.edu">Email</a></span>
+    </div>
+  </footer>
+  <script src="../script.js"></script>
+</body>
+</html>
