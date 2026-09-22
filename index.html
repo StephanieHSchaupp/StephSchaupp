@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=3" />
 </head>
 <body>
 
@@ -78,47 +78,64 @@
         </a>
 
         <div class="grid">
+          <div class="card static">
+            <div class="card-img placeholder">
+              <svg viewBox="0 0 480 270" role="img" aria-label="FPGA project placeholder">
+                <rect x="150" y="75" width="180" height="120" rx="6" class="chip"/>
+                <g class="pins">
+                  <path d="M170 75 V55 M195 75 V55 M220 75 V55 M245 75 V55 M270 75 V55 M295 75 V55 M310 75 V55"/>
+                  <path d="M170 195 V215 M195 195 V215 M220 195 V215 M245 195 V215 M270 195 V215 M295 195 V215 M310 195 V215"/>
+                  <path d="M150 95 H130 M150 120 H130 M150 145 H130 M150 170 H130 M330 95 H350 M330 120 H350 M330 145 H350 M330 170 H350"/>
+                </g>
+                <text x="240" y="132" text-anchor="middle" class="big">FPGA</text>
+                <text x="240" y="156" text-anchor="middle" class="small">in progress</text>
+              </svg>
+            </div>
+            <div class="card-body">
+              <span class="label">Digital design · APE 2026 · In progress</span>
+              <h3>FPGA Graphics Card</h3>
+              <p>A graphics card implemented on an FPGA. It’s a team project with Hector Diaz, Logan Fleming, Mackenzie Chan, and Dorukhan User. The block diagram and full write-up are coming soon.</p>
+              <div class="tags"><span class="tag">FPGA</span><span class="tag">HDL</span><span class="tag">digital design</span></div>
+              <span class="wip">Write-up coming soon</span>
+            </div>
+          </div>
+
           <a class="card" href="projects/automated-blinds.html">
             <div class="card-img"><img src="assets/images/PCB_Layout1.png" alt="KiCad PCB layout for the automated blinds controller" loading="lazy"></div>
             <div class="card-body">
-              <span class="label">PCB · Enclosure · In progress</span>
-              <h3>Integrated PCB &amp; Enclosure for Automated Blinds</h3>
-              <p>ESP32 controller board with a brushed DC motor driver, laid out in KiCad and fit to a 3D-printed SolidWorks enclosure.</p>
-              <div class="tags"><span class="tag">KiCad</span><span class="tag">ESP32</span><span class="tag">SolidWorks</span></div>
+              <span class="label">PCB design · HOPE · Fall 2025</span>
+              <h3>Automated Blinds Controller PCB &amp; Enclosure</h3>
+              <p>ESP32 controller board with a brushed DC motor driver, laid out in KiCad and fit to a 3D-printed SolidWorks enclosure. We mounted it on blinds and got it working. A team project with Thet Paing (David) Da Na and Kashvi Prakash Bhatia.</p>
+              <div class="tags"><span class="tag">KiCad</span><span class="tag">ESP32</span><span class="tag">motor driver</span><span class="tag">SolidWorks</span></div>
               <span class="more">View project</span>
             </div>
           </a>
+        </div>
 
-          <a class="card" href="projects/usb-rectifier.html">
-            <div class="card-img"><img src="assets/images/Rectifier.png" alt="PLECS model of a full-bridge rectifier" loading="lazy"></div>
-            <div class="card-body">
-              <span class="label">Power electronics · Simulation</span>
-              <h3>Power Quality of a Full-Bridge Rectifier for USB Charging</h3>
-              <p>PLECS study of power factor, THD, and output ripple, with component sizes chosen to meet USB specs in the smallest footprint.</p>
-              <div class="tags"><span class="tag">PLECS</span><span class="tag">THD</span><span class="tag">power factor</span></div>
-              <span class="more">View project</span>
+        <h3 class="sub-head">Other engineering projects</h3>
+        <div class="mini-grid">
+          <a class="mini" href="projects/usb-rectifier.html">
+            <div class="mini-img"><img src="assets/images/Rectifier.png" alt="PLECS model of a full-bridge rectifier" loading="lazy"></div>
+            <div>
+              <span class="label">PLECS · Simulation</span>
+              <h4>Full-Bridge Rectifier Power-Quality Analysis</h4>
+              <p>Learning PLECS by modeling PF, THD, and ripple for a USB charger front end.</p>
             </div>
           </a>
-
-          <a class="card" href="projects/wind-turbine.html">
-            <div class="card-img"><img src="assets/images/Wind_Turbine_Blade.png" alt="CAD model of wind turbine blade" loading="lazy"></div>
-            <div class="card-body">
+          <a class="mini" href="projects/wind-turbine.html">
+            <div class="mini-img"><img src="assets/images/Wind_Turbine_Blade.png" alt="Wind turbine blade CAD model" loading="lazy"></div>
+            <div>
               <span class="label">Mechanical · FEA</span>
-              <h3>Aerodynamic &amp; Structural Optimization of a HAWT</h3>
-              <p>Three-blade SG 6043 rotor tuned for a 25 mph design wind speed, with the tower and blades refined in SolidWorks FEA.</p>
-              <div class="tags"><span class="tag">SolidWorks</span><span class="tag">FEA</span><span class="tag">aero</span></div>
-              <span class="more">View project</span>
+              <h4>HAWT Aerodynamic &amp; Structural Optimization</h4>
+              <p>SG 6043 rotor for 25 mph; 12.63 W at 17.7 N/mm stiffness.</p>
             </div>
           </a>
-
-          <a class="card" href="projects/cascade-refrigeration.html">
-            <div class="card-img"><img src="assets/images/Cascade_refrigeration.png" alt="Cascade refrigeration cycle diagram" loading="lazy"></div>
-            <div class="card-body">
-              <span class="label">Thermodynamics · Python</span>
-              <h3>Two-Stage NH₃ / CO₂ Cascade Refrigeration Cycle</h3>
-              <p>Python model that sweeps the inter-stage saturation temperature to find the maximum-COP operating point.</p>
-              <div class="tags"><span class="tag">Python</span><span class="tag">Jupyter</span><span class="tag">thermo</span></div>
-              <span class="more">View project</span>
+          <a class="mini" href="projects/cascade-refrigeration.html">
+            <div class="mini-img"><img src="assets/images/Cascade_refrigeration.png" alt="Cascade refrigeration cycle" loading="lazy"></div>
+            <div>
+              <span class="label">Thermo · Python</span>
+              <h4>NH₃ / CO₂ Cascade Refrigeration Cycle</h4>
+              <p>Python COP optimization; max COP of 4.95 at 28.07 °C inter-stage.</p>
             </div>
           </a>
         </div>
@@ -223,6 +240,6 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=3"></script>
 </body>
 </html>

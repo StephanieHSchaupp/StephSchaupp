@@ -285,3 +285,35 @@ tr.hi td { color: var(--text); background: var(--pink-wash); }
 .hero-fig { margin: 32px 0 0; }
 .hero-fig .frame.light { padding: 0; }
 .hero-fig img { width: 100%; max-height: 640px; object-fit: contain; border-radius: 0 !important; }
+
+/* static (non-link) card + placeholder visual */
+.card.static:hover { transform: none; border-color: var(--line); }
+.card-img.placeholder { background: var(--bg-raised); display: flex; align-items: center; justify-content: center; }
+.card-img.placeholder svg { width: 100%; height: 100%; }
+.card-img.placeholder .chip { fill: var(--bg-card); stroke: var(--pink); stroke-width: 1.5; }
+.card-img.placeholder .pins path { stroke: var(--line-strong); stroke-width: 3; stroke-linecap: round; }
+.card-img.placeholder .big { fill: var(--pink); font-family: var(--mono); font-size: 26px; font-weight: 600; }
+.card-img.placeholder .small { fill: var(--text-faint); font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+.wip { font-family: var(--mono); font-size: 13px; color: var(--text-faint); margin-top: auto; }
+.wip::before { content: "● "; color: var(--pink); }
+
+/* other projects */
+.sub-head { font-size: 16px; font-family: var(--mono); font-weight: 500; color: var(--text-dim); margin: 56px 0 16px; letter-spacing: .02em; }
+.mini-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+@media (max-width: 860px) { .mini-grid { grid-template-columns: 1fr; } }
+.mini {
+  display: grid; grid-template-rows: auto 1fr; background: var(--bg-card); border: 1px solid var(--line);
+  border-radius: var(--radius); overflow: hidden; color: var(--text); transition: border-color .2s;
+}
+.mini:hover { border-color: var(--pink); color: var(--text); }
+.mini-img { aspect-ratio: 16 / 7; background: #f6f3f3; overflow: hidden; border-bottom: 1px solid var(--line); }
+.mini-img img { width: 100%; height: 100%; object-fit: cover; }
+.mini > div:last-child { padding: 14px 16px 16px; }
+.mini h4 { font-size: 15px; line-height: 1.3; margin: 6px 0 6px; }
+.mini p { font-size: 13px; color: var(--text-dim); margin: 0; }
+.mini .label { font-size: 11px; }
+@media (max-width: 860px) { .mini { grid-template-columns: 140px 1fr; grid-template-rows: none; } .mini-img { aspect-ratio: auto; border-bottom: none; border-right: 1px solid var(--line); } }
+
+/* credits on project pages */
+.credits { font-size: 14px; color: var(--text-dim); margin: 0 0 20px; }
+.credits strong { color: var(--text); font-weight: 600; }
